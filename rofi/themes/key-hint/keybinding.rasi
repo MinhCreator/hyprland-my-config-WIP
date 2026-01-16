@@ -1,0 +1,22 @@
+configuration{
+    modi: "combi,window";
+    font:"JetBrains Mono Nerd Font 13";
+    icon-theme: "Papirus";
+    show-icons: true;
+	location: 0;
+    terminal: "kitty";
+	run-command: "{cmd}";
+	run-shell-command: "{terminal} --hold -e {cmd}";
+	drun-display-format: "{icon} {name}";
+    disable-history: false;
+    hide-scrollbar: true;
+	display-run: " ";
+    display-drun: " 󰀻";
+    display-combi: " 󰀻 Apps ";
+    display-window: " 󱂬 Window ";
+    display-Network: " 󰤨  Network";
+	display-clipboard: " 󱘞 Clipboard ";
+    sidebar-mode: true;
+}
+
+@theme "./.config/rofi/color-themes/catppuccin-mocha.rasi"

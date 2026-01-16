@@ -1,0 +1,517 @@
+math.randomseed(os.time())
+
+local function getGreeting(name)
+	local tableTime = os.date("*t")
+	local hour = tableTime.hour
+	local greetingsTable = {
+		[1] = "  Sleep well",
+		[2] = "  Good morning",
+		[3] = "  Good afternoon",
+		[4] = "  Good evening",
+		[5] = "󰖔 Good night",
+	}
+	local greetingIndex = 0
+	if hour == 23 or hour < 7 then
+		greetingIndex = 1
+	elseif hour < 12 then
+		greetingIndex = 2
+	elseif hour >= 12 and hour < 18 then
+		greetingIndex = 3
+	elseif hour >= 18 and hour < 21 then
+		greetingIndex = 4
+	elseif hour >= 21 then
+		greetingIndex = 5
+	end
+	return greetingsTable[greetingIndex] --{ fg = pick_color() }
+end
+local userName = "MinhCreatorVN"
+local greeting = "<|" .. getGreeting(userName) .. ", " .. userName .. "|>"
+local function check_greeting_color()
+	local gr = getGreeting(userName)
+
+	if gr == "  Sleep well" then
+		return "#F1B3BE"
+	elseif gr == "  Good morning" then
+		return "#FFE9A6"
+	elseif gr == "  Good afternoon" then
+		return "#F8AA27"
+	elseif gr == "  Good evening" then
+		return "#546BAB"
+	elseif gr == "󰖔 Good night" then
+		return "#387478"
+	end
+end
+
+local text = {
+
+	{
+		type = "text",
+		val = "<-|[  Fastest Code Editor  ]|->",
+		opts = { hl = "CodeEditor", shrink_margin = false, position = "center" },
+	},
+	{
+		type = "text",
+		val = greeting,
+		opts = {
+			position = "center",
+			hl = "getGreeting",
+		},
+	},
+	{
+		type = "padding",
+		val = 0,
+	},
+}
+
+local theme = {
+	theme_1 = {
+		{
+			type = "text",
+			val = "   ██╗      █████╗ ███████╗██╗   ██╗     ██████╗ ██████╗ ██████╗ ███████╗  ",
+			opts = { hl = "NeovimDashboardLogo1", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = "   ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝    ██╔════╝██╔═══██╗██╔══██╗██╔════╝  ",
+			opts = { hl = "NeovimDashboardLogo2", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = "   ██║     ███████║  ███╔╝  ╚████╔╝     ██║     ██║   ██║██║  ██║█████╗    ",
+			opts = { hl = "NeovimDashboardLogo3", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = "   ██║     ██╔══██║ ███╔╝    ╚██╔╝      ██║     ██║   ██║██║  ██║██╔══╝    ",
+			opts = { hl = "NeovimDashboardLogo4", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = "   ███████╗██║  ██║███████╗   ██║       ╚██████╗╚██████╔╝██████╔╝███████╗  ",
+			opts = { hl = "NeovimDashboardLogo5", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = "   ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝        ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝  ",
+			opts = { hl = "NeovimDashboardLogo6", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = "<-|[  Fastest Code Editor  ]|->",
+			opts = { hl = "CodeEditor", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = greeting,
+			opts = {
+				position = "center",
+				hl = "getGreeting",
+			},
+		},
+		-- {
+		--     type = "padding",
+		--     val = 0,
+		-- },
+	},
+	theme_2 = {
+		{
+			type = "text",
+			val = " ███    ██ ███████  ██████  ██    ██ ██ ███    ███ ",
+			opts = { hl = "NeovimDashboardLogo1", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = " ████   ██ ██      ██    ██ ██    ██ ██ ████  ████ ",
+			opts = { hl = "NeovimDashboardLogo2", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = " ██ ██  ██ █████   ██    ██ ██    ██ ██ ██ ████ ██ ",
+			opts = { hl = "NeovimDashboardLogo3", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = " ██  ██ ██ ██      ██    ██  ██  ██  ██ ██  ██  ██ ",
+			opts = { hl = "NeovimDashboardLogo4", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = " ██   ████ ███████  ██████    ████   ██ ██      ██ ",
+			opts = { hl = "NeovimDashboardLogo5", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = "<-|[  Fastest Code Editor  ]|->",
+			opts = { hl = "CodeEditor", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = greeting,
+			opts = {
+				position = "center",
+				hl = "getGreeting",
+			},
+		},
+		-- {
+		--     type = "padding",
+		--     val = 0,
+		-- },
+	},
+	theme_3 = {
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣤⣤⣄⣀⣀⠀⠀⠀                     ",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠶⣻⠝⠋⠠⠔⠛⠁⡀⠀⠈⢉⡙⠓⠶⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⢋⣴⡮⠓⠋⠀⠀⢄⠀⠀⠉⠢⣄⠀⠈⠁⠀⡀⠙⢶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⢁⣔⠟⠁⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⠈⢦⡀⠀⠀⠘⢯⢢⠙⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡼⠃⠀⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠸⠀⠀⠀⠀⠀⢳⣦⡀⠀⠀⢯⠀⠈⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⠆⡄⢠⢧⠀⣸⠀⠀⠀⠀⠀⠀⠀⢰⠀⣄⠀⠀⠀⠀⢳⡈⢶⡦⣿⣷⣿⢉⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣯⣿⣁⡟⠈⠣⡇⠀⠀⢸⠀⠀⠀⠀⢸⡄⠘⡄⠀⠀⠀⠈⢿⢾⣿⣾⢾⠙⠻⣾⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⡿⣮⠇⢙⠷⢄⣸⡗⡆⠀⢘⠀⠀⠀⠀⢸⠧⠀⢣⠀⠀⠀⡀⡸⣿⣿⠘⡎⢆⠈⢳⣽⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⢠⡟⢻⢷⣄⠀⠀⠀⠀⠀⠀⣾⣳⡿⡸⢀⣿⠀⠀⢸⠙⠁⠀⠼⠀⠀⠀⠀⢸⣇⠠⡼⡤⠴⢋⣽⣱⢿⣧⠀⢳⠈⢧⠀⢻⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⢀⡿⣠⡣⠃⣿⠃⠀⠀⠀⠀⣸⣳⣿⠇⣇⢸⣿⢸⣠⠼⠀⠀⠀⡇⠀⡀⠉⠒⣾⢾⣆⢟⣳⡶⠓⠶⠿⢼⣿⣇⠈⡇⠘⢆⠈⢿⡘⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠈⢷⣍⣤⡶⣿⡄⠀⠀⠀⢠⣿⠃⣿⠀⡏⢸⣿⣿⠀⢸⠀⠀⢠⡗⢀⠇⠀⢠⡟⠀⠻⣾⣿⠀⠀⠀⠀⡏⣿⣿⡀⢹⡀⠈⢦⠈⢷⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢁⣤⣄⠁⠀⠀⠀⣼⡏⢰⣟⠀⣇⠘⣿⣿⣾⣾⣆⢀⣾⠃⣼⢠⣶⣿⣭⣷⣶⣾⣿⣤⠀⠀⠀⡇⡯⣍⣧⠀⣷⠄⠈⢳⡀⢻⡁⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠺⣿⡿⠀⠀⠀⠀⡿⢀⣾⣧⠀⡗⡄⢿⣿⡙⣽⣿⣟⠛⠚⠛⠙⠉⢹⣿⣿⣦⠀⢸⡿⠀⠀⠀⢰⡯⣌⢻⡀⢸⢠⢰⡄⠹⡷⣿⣦⣤⠤⣶⡇⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⣇⣾⣿⢸⢠⣧⢧⠘⣿⡇⠸⣿⢿⡆⠀⠀⠀⠀⠘⣯⠇⣿⠂⣸⢰⠀⠀⢀⣸⡧⣊⣼⡇⢸⣼⣸⣷⢣⢻⣄⠉⠙⠛⠉⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣳⣤⣴⣿⣏⣿⣾⢸⣿⡘⣧⣘⢿⣀⡙⣞⠁⠀⠀⠀⠀⢀⡬⢀⣉⢠⣧⡏⠀⠀⡎⣿⣿⣿⣿⠃⣸⡏⣿⣿⡎⢿⡘⡆⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⣠⣼⣿⣿⣿⣼⣿⣧⢿⣿⣿⣯⡻⠟⠀⠀⠀⠀⠀⠐⢯⠣⡽⢟⣽⠀⠀⢘⡇⣿⣿⣿⡟⣴⣿⣷⣿⣿⣧⣿⣷⡽⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀⣼⣹⣿⣇⣸⣿⣿⣿⣻⣚⣿⡿⣿⣿⣦⣤⣀⡉⠃⠀⢀⣀⣤⡶⠛⡏⠀⢀⣼⢸⣿⣿⣿⣿⣿⣿⣿⢋⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⣿⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠒⠒⠒⢭⢻⣽⣿⣿⣿⣿⣿⣿⢿⠿⣿⡏⠀⡼⠁⣀⣾⣿⣿⣿⣿⡿⣿⣿⣟⡻⣿⣿⡿⠣⠟⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠸⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢧⢿⣯⡽⠿⠛⠋⣵⢟⣋⣿⣶⣞⣤⣾⣿⣿⡟⢉⡿⢋⠻⢯⡉⢻⡟⢿⡅⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⢻⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡞⣿⣆⡀⠀⡼⡏⠉⠚⠭⢉⣠⠬⠛⠛⢁⡴⣫⠖⠁⠀⠀⣩⠟⠁⣸⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠈⢷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣽⣿⣿⣾⠳⡙⣦⡤⠜⠊⠁⠀⣀⡴⠯⠾⠗⠒⠒⠛⠛⠛⠛⠛⠓⠿⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠘⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢷⣻⣿⣿⠔⢪⠓⠬⢍⠉⣩⣽⢻⣤⣶⣦⠀⠀⠀⢀⣀⣤⣴⣾⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠹⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣾⡏⢦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣯⣿⣿⠀⠀⣇⠀⣠⠎⠁⢹⡎⡟⡏⣷⣶⠿⠛⡟⠛⠛⣫⠟⠉⢿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⢻⡄⠀⠀⠀⠀⠀⠀⠀⠀⠹⣿⣷⠈⢷⡤⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣾⣷⡀⣀⣀⣷⡅⠀⠀⠈⣷⢳⡇⣿⠀⠀⣸⠁⢠⡾⣟⣛⣻⣟⡿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⢷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢯⢻⣏⡵⠿⠿⢤⣄⠀⢀⣿⢸⣹⣿⣀⣴⣿⣴⣿⣛⠋⠉⠉⡉⠛⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠘⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⡎⣿⣥⣶⠖⢉⣿⡿⣿⣿⡿⣿⣟⠿⠿⣿⣿⣿⡯⠻⣿⣿⣿⣷⡽⣿⡗⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠸⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡘⣿⣩⠶⣛⣋⡽⠿⣷⢬⣙⣻⣿⣿⣿⣯⣛⠳⣤⣬⡻⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⣿⣛⣻⣿⡿⠿⠟⠗⠶⠶⠶⠶⠤⠤⢤⠤⡤⢤⣤⣤⣤⣤⣄⣀⣀⣀⣀⣀⣀⣀⣀⣣⢹⣷⣶⣿⣿⣦⣴⣟⣛⣯⣤⣿⣿⣿⣿⣿⣷⣌⣿⣿⣿⣿⣿⣿⣿⣤⣤⣤⣤⣤⣤⣄",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠉⠙⠛⠛⠛⠛⠛⠻⠿⠿⠿⠷⠶⠶⢶⣶⣶⣶⣶⣤⣤⣤⣤⣤⣥⣬⣭⣭⣉⣩⣍⣙⣏⣉⣏⣽⣶⣶⣶⣤⣤⣬⣤⣤⣾⣿⠶⠾⠿⠿⠿⠿⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠃",
+		},
+		{
+			type = "text",
+			opts = { hl = "nvimdash", shrink_margin = false, position = "center" },
+			val = "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠛⠛⠛⠛⠛⠛⠋⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+		},
+		{
+			type = "text",
+			val = "<-|[  Fastest Code Editor  ]|->",
+			opts = { hl = "CodeEditor", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = greeting,
+			opts = {
+				position = "center",
+				hl = "getGreeting",
+			},
+		},
+	},
+	theme_4 = {
+		{
+			-- val = [[
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠿⠛⠛⠛⠛⠻⠿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⣉⠄⣢⣴⣟⣫⣤⣾⢿⣿⣷⡶⢦⣬⣉⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣡⡴⠋⢑⣬⣴⣿⣿⡻⣿⣿⣶⣝⠻⣿⣷⣾⣿⢿⣦⡉⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⣡⡾⠫⣠⣾⣿⣿⣿⣿⣿⣷⢹⣿⣿⣿⣷⡙⢿⣿⣿⣧⡐⡝⣦⡙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢃⣼⣿⠀⣼⣿⣿⣿⣿⣿⣿⣿⣿⣇⣿⣿⣿⣿⣿⡌⠙⢿⣿⣿⡐⣿⣷⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⣹⢻⡟⡘⣿⠇⣿⣿⣿⣿⣿⣿⣿⡏⣿⠻⣿⣿⣿⣿⡌⢷⡉⢙⠀⠈⠀⡶⠈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠐⠀⠾⢠⣷⣜⢸⣿⣿⡇⣿⣿⣿⣿⡇⢻⣧⢻⣿⣿⣿⣷⡀⡁⠀⠁⡁⣦⣄⠁⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠀⢀⠑⣸⡦⣈⡻⠇⢨⢹⣿⡧⣿⣿⣿⣿⡇⣘⣿⡜⣿⣿⣿⢿⢇⠀⠀⣧⢱⡹⣷⡌⠂⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⡟⢠⡄⡈⠻⣿⣿⣿⣿⣿⣿⠁⠌⢀⢇⡿⠀⣿⣿⡇⣦⣾⣿⣃⣿⣿⣿⣿⡇⠸⣟⢃⢛⣋⡴⠂⠎⡀⠘⣿⡌⣷⡘⣿⡄⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⡿⢀⠟⢜⣼⠀⣼⣿⣿⣿⣿⠇⠌⠀⣸⠸⡇⠀⡇⠟⣃⣿⣿⣿⢸⣿⢿⣶⣭⠁⡁⠹⡠⠌⢉⣬⣉⣀⡃⠀⠸⣷⢸⣧⡹⣷⡀⢧⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣷⡈⠲⠛⢉⠀⢻⣿⣿⣿⡟⠀⣼⠀⣿⢰⡇⠀⠀⣿⡇⣿⣿⡟⢨⡿⣸⣿⡟⢠⣿⣄⠁⠀⣿⣿⣿⣿⢰⠀⠀⢿⡆⢿⣷⡙⣷⡈⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡾⠛⠻⣾⣿⣿⣿⠃⢰⡏⠠⣿⠸⣧⠀⠀⠁⠁⠹⡿⠁⣼⠃⡟⠉⠀⠒⠈⠉⠁⠀⠛⣿⣿⣿⢸⢐⠲⠘⣿⠈⣻⣷⡌⢿⡄⢾⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣅⠀⢀⣿⣿⣿⣿⢀⡿⠁⠘⣿⢨⢻⡀⠀⢦⠂⠀⠠⣤⣥⣤⣦⣶⡆⠀⠀⠙⣿⡇⢀⣿⣿⣿⡏⢐⠳⡄⢿⡇⡟⡏⢻⣆⢈⠀⠙⠛⣛⠉⢸⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⣿⣿⠸⠁⠀⡇⡟⠘⡘⣧⠀⢸⣇⠀⡀⢹⣿⣿⣿⣿⣧⠐⣸⠀⣽⠇⡏⣿⣿⡿⠇⢘⠵⠃⢸⡇⠃⠇⠈⡜⡄⠻⣶⣦⣤⣶⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠌⠛⠋⠀⠰⠀⠁⡇⠀⢧⠘⠧⡀⠿⢦⠡⣾⣿⣿⣿⣿⡿⢓⡿⠶⡟⠘⢰⣿⣿⢱⠀⠀⠀⠀⣼⠇⢰⠀⠀⢱⡀⢧⢹⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⠟⠃⠀⠀⠀⠃⠀⠘⡀⠀⠀⠐⢄⣠⣿⣿⣿⣿⣿⣯⡐⣜⢂⡠⠂⣿⣿⡧⢸⠀⠀⠀⢠⠋⠀⠈⠀⠀⠘⠀⠈⢂⣿⣿⣿⣿⣿⣿⣿
+			-- ⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠿⠃⠆⠀⠸⠇⠀⠀⠀⠄⠥⠀⢀⠀⠀⠙⠛⠿⢶⣼⣿⡿⠿⠛⢉⣤⢰⣿⡿⠃⡇⠀⠀⠀⠀⠀⠀⠀⡴⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿
+			-- ⠀⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣭⣭⣭⡒⡄⠂⠀⠀⠀⠀⠀⠀⡀⣀⠀⢰⣿⢃⣾⠿⠁⠀⠀⠀⠀⢀⠀⠀⠠⢄⠀⠀⢀⣜⣠⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣇⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡘⡀⠐⢂⣀⣤⣴⠊⡠⠴⠀⠉⠡⠛⠁⠀⠀⢠⡶⢀⡴⣄⡐⢶⡄⢠⡀⢺⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⡄⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⢡⠀⠹⢿⣿⢃⢰⣶⣥⣒⡶⠟⣓⣤⣤⡾⢋⠔⣩⣾⣿⣿⠖⣠⣾⠇⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣷⡈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠂⠀⠀⠁⣌⢦⠙⢛⣣⣵⣾⣿⠿⢋⣐⣁⣨⣭⣭⣤⣤⣤⣤⣤⣬⣀⠙⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣧⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣏⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡈⠄⠀⠀⣫⡕⣬⣓⡲⣶⠖⠂⡄⠛⠉⠙⣿⣿⣿⡿⠿⠛⠋⠁⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣆⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠁⢰⡙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠐⠀⠀⣿⣿⠸⣿⠟⣱⣾⡆⢱⢠⢰⠈⠉⣀⣤⢠⣤⣤⠔⣠⣶⡀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⡄⢻⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠈⣷⡈⢛⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠁⠈⢿⠿⠿⠈⢺⣿⣿⣷⠈⡌⢸⠀⣿⣿⠇⣾⡟⢁⠠⠤⠄⠠⢀⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⡈⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡐⡄⠰⢊⣀⣀⡛⠻⣿⡿⠀⡇⠆⠀⠿⠋⠀⠋⠀⠤⣴⣶⣶⢶⣤⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣧⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⢱⠀⠚⠉⣩⡶⠀⢀⠀⠀⢀⠀⠠⣀⣀⠀⠀⠀⢐⣄⠀⠀⠀⠈⢂⠀⢨⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⣿⣿⣿⣿⣿⣇⠸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣇⢧⠀⠖⣉⠤⠴⢂⣀⠈⡓⠦⠄⠀⠀⠀⠐⠤⣌⠛⠓⢄⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿
+			-- ⣿⠀⠤⠄⠀⢀⣀⣠⣨⣉⣉⣉⣉⣛⣛⡛⣛⢛⡛⠛⠛⠛⠛⠻⠿⠿⠿⠿⠿⠿⠿⠿⠜⡆⠈⠉⠀⠀⠙⠋⠠⠤⠐⠛⠀⠀⠀⠀⠀⠈⠳⠀⠀⠀⠀⠀⠀⠀⠛⠛⠛⠛⠛⠛⠻
+			-- ⣿⣶⣦⣤⣤⣤⣤⣤⣄⣀⣀⣀⣈⣉⣉⡉⠉⠉⠉⠉⠛⠛⠛⠛⠛⠚⠓⠒⠒⠶⠖⠲⠦⠰⠶⠰⠂⠉⠉⠉⠛⠛⠓⠛⠛⠁⠀⣉⣁⣀⣀⣀⣀⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣼
+			-- ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣶⣶⣶⣶⣶⣶⣤⣤⣤⣤⣤⣤⣴⣶⣶⣶⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			-- ]],
+			val = [[
+			⣇⣿⠘⣿⣿⣿⡿⡿⣟⣟⢟⢟⢝⠵⡝⣿⡿⢂⣼⣿⣷⣌⠩⡫⡻⣝⠹⢿⣿⣷
+			⡆⣿⣆⠱⣝⡵⣝⢅⠙⣿⢕⢕⢕⢕⢝⣥⢒⠅⣿⣿⣿⡿⣳⣌⠪⡪⣡⢑⢝⣇
+			⡆⣿⣿⣦⠹⣳⣳⣕⢅⠈⢗⢕⢕⢕⢕⢕⢈⢆⠟⠋⠉⠁⠉⠉⠁⠈⠼⢐⢕⢽
+			⡗⢰⣶⣶⣦⣝⢝⢕⢕⠅⡆⢕⢕⢕⢕⢕⣴⠏⣠⡶⠛⡉⡉⡛⢶⣦⡀⠐⣕⢕
+			⡝⡄⢻⢟⣿⣿⣷⣕⣕⣅⣿⣔⣕⣵⣵⣿⣿⢠⣿⢠⣮⡈⣌⠨⠅⠹⣷⡀⢱⢕
+			⡝⡵⠟⠈⢀⣀⣀⡀⠉⢿⣿⣿⣿⣿⣿⣿⣿⣼⣿⢈⡋⠴⢿⡟⣡⡇⣿⡇⡀⢕
+			⡝⠁⣠⣾⠟⡉⡉⡉⠻⣦⣻⣿⣿⣿⣿⣿⣿⣿⣿⣧⠸⣿⣦⣥⣿⡇⡿⣰⢗⢄
+			⠁⢰⣿⡏⣴⣌⠈⣌⠡⠈⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣬⣉⣉⣁⣄⢖⢕⢕⢕
+			⡀⢻⣿⡇⢙⠁⠴⢿⡟⣡⡆⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣵⣵⣿
+			⡻⣄⣻⣿⣌⠘⢿⣷⣥⣿⠇⣿⣿⣿⣿⣿⣿⠛⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿
+			⣷⢄⠻⣿⣟⠿⠦⠍⠉⣡⣾⣿⣿⣿⣿⣿⣿⢸⣿⣦⠙⣿⣿⣿⣿⣿⣿⣿⣿⠟
+			⡕⡑⣑⣈⣻⢗⢟⢞⢝⣻⣿⣿⣿⣿⣿⣿⣿⠸⣿⠿⠃⣿⣿⣿⣿⣿⣿⡿⠁⣠
+			⡝⡵⡈⢟⢕⢕⢕⢕⣵⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⣀⣈⠙
+			⡝⡵⡕⡀⠑⠳⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⢉⡠⡲⡫⡪⡪⡣ 
+			]],
+			type = "text",
+			opts = { position = "center" },
+		},
+		{
+			type = "text",
+			val = "<-|[  Fastest Code Editor  ]|->",
+			opts = { hl = "CodeEditor", shrink_margin = false, position = "center" },
+		},
+		{
+			type = "text",
+			val = greeting,
+			opts = {
+				position = "center",
+				hl = "getGreeting",
+			},
+		},
+	},
+}
+
+local function pick_color()
+	local r = math.random(0, 255)
+	local g = math.random(0, 255)
+	local b = math.random(0, 255)
+	return string.format("#%02X%02X%02X", r, g, b)
+end
+
+local function random_color()
+	local hex_col_def = "#"
+
+	for i = 1, 6 do
+		hex_col_def = hex_col_def .. string.format("%X", math.random(0, 15))
+	end
+
+	return hex_col_def
+end
+
+-- loading ascii art from file for dashboard
+-- local function read_ascii_art(file_path)
+--     local lines = {}
+--     for line in io.lines(file_path) do
+--         table.insert(lines, line)
+--     end
+--     return lines
+-- end
+-- local file_path = "./ASCII.txt"
+-- local ascii_art_lines = read_ascii_art(file_path)
+-- dashboard.section.header.val = ascii_art_lines
+
+local dashboard = require("alpha.themes.dashboard")
+local header = vim.api.nvim_set_hl
+-- Define and set highlight groups for each logo line
+header(0, "NeovimDashboardLogo1", { fg = "#EF476F" }) --{ fg = random_color() })
+header(0, "NeovimDashboardLogo2", { fg = "#F78C6B" }) --{ fg = random_color() })
+header(0, "NeovimDashboardLogo3", { fg = "#FFD166" }) --{ fg = random_color() })
+header(0, "NeovimDashboardLogo4", { fg = "#06D6A0" }) --{ fg = random_color() })
+header(0, "NeovimDashboardLogo5", { fg = "#118AB2" }) --{ fg = random_color() })
+header(0, "NeovimDashboardLogo6", { fg = "#090B4C" }) --{ fg = random_color() })
+header(0, "CodeEditor", { fg = "#fa3628" }) --{ fg = "#fa3628" })
+header(0, "getGreeting", { fg = check_greeting_color() })
+dashboard.section.header.type = "group"
+local button = dashboard.button
+dashboard.section.buttons.val = {
+	button("n", " " .. " New file", "<cmd> ene | startinsert <cr>"),
+	button("f", " " .. " Search", "<cmd>lua Snacks.picker.smart() <cr>"),
+	button("s", " " .. " session", "<cmd> lua require('persistence').load() <cr>"),
+	button("r", " " .. " Recent files", "<cmd>Telescope oldfiles <cr>"),
+	button(
+		"c",
+		" " .. " Dotfiles",
+		"<cmd>lua require('telescope.builtin').find_files({prompt_title = 'Config File', cwd = vim.fn.stdpath('config')})<cr>"
+	),
+	button("k", " " .. " Keybindings", "<cmd>NvCheatsheet<cr>"),
+	button("l", "󰒲 " .. " Lazy", "<cmd> Lazy <cr>"),
+	button("q", " " .. " Quit", "<cmd> qa <cr>"),
+	-- button("t", " " .. " Theme", "<cmd> lua require('nvchad.themes').open()<cr>"),
+	-- button("w", " " .. " Notification histories", "<cmd> Telescope notify <cr>"),
+	-- button("m", "󰙭 " .. " Mason component", "<cmd> Mason <cr>"),
+	-- button("g", " " .. " Find text", "<cmd>Telescope live_grep <cr>"),
+}
+
+for _, button in ipairs(dashboard.section.buttons.val) do
+	button.opts.hl = "AlphaButtons"
+	button.opts.hl_shortcut = "AlphaShortcut"
+end
+--vim.api.nvim_set_hl(0, "AlphaHeader", { fg = "#311B92" }) -- Dark Indigo
+
+local AlphaButtons = vim.api.nvim_set_hl
+AlphaButtons(0, "AlphaButtons", { fg = "#33abea" }) -- blue -{ fg = "#fafafa" })  -- white
+
+local shortcut = vim.api.nvim_set_hl
+shortcut(0, "AlphaShortcut", { fg = "#fa3628" }) -- red
+
+local footers = vim.api.nvim_set_hl
+footers(0, "AlphaFooter", { fg = "#6A9C89" }) --"#edd691" 6A9C89})
+-- Footer
+local function footer()
+	-- local stats = require("lazy").stats()
+	local total_plugins = require("lazy").stats().count
+	local datetime = os.date("  %d/%m/%Y   %H:%M")
+	-- local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+	local version = vim.version()
+
+	local version_info = function()
+		if vim.g.neovide then
+			return "\n  Neovim "
+				.. version.major
+				.. "."
+				.. version.minor
+				.. "."
+				.. version.patch
+				.. "         "
+				.. " 󰔃 Neovide " .. vim.g.neovide_version
+		else
+			return "\n            Neovim "
+				.. version.major
+				.. "."
+				.. version.minor
+				.. "."
+				.. version.patch
+		end
+	end
+
+	local nvim_version_info = "\n           󱓞 Version "
+		.. version.major
+		.. "."
+		.. version.minor
+		.. "."
+		.. version.patch
+
+	return " Loaded " .. "  " .. total_plugins .. " plugins" .. datetime .. version_info()
+end
+
+
+local dash = dashboard.section
+dash.header.val = theme.theme_2
+dash.header.opts.hl = "AlphaHeader"
+dash.buttons.opts.hl = "AlphaButtons"
+dash.footer.opts.hl = "AlphaFooter"
+dash.footer.val = footer()
+--dashboard.section.footer.opts.hl = "Constant"
+dashboard.opts.layout[1].val = 5
+
+return dashboard

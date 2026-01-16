@@ -1,0 +1,187 @@
+#!/bin/bash
+
+#  ██╗    ██╗ █████╗ ██╗     ██╗     ██████╗  █████╗ ██████╗ ███████╗██████╗
+#  ██║    ██║██╔══██╗██║     ██║     ██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗
+#  ██║ █╗ ██║███████║██║     ██║     ██████╔╝███████║██████╔╝█████╗  ██████╔╝
+#  ██║███╗██║██╔══██║██║     ██║     ██╔═══╝ ██╔══██║██╔═══╝ ██╔══╝  ██╔══██╗
+#  ╚███╔███╔╝██║  ██║███████╗███████╗██║     ██║  ██║██║     ███████╗██║  ██║
+#   ╚══╝╚══╝ ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝
+#
+#  ██╗      █████╗ ██╗   ██╗███╗   ██╗ ██████╗██╗  ██╗███████╗██████╗
+#  ██║     ██╔══██╗██║   ██║████╗  ██║██╔════╝██║  ██║██╔════╝██╔══██╗
+#  ██║     ███████║██║   ██║██╔██╗ ██║██║     ███████║█████╗  ██████╔╝
+#  ██║     ██╔══██║██║   ██║██║╚██╗██║██║     ██╔══██║██╔══╝  ██╔══██╗
+#  ███████╗██║  ██║╚██████╔╝██║ ╚████║╚██████╗██║  ██║███████╗██║  ██║
+#  ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
+
+# Static wallpaper directory
+STATIC_WALLPAPER_DIR="$HOME/Pictures/" 
+#.config/hypr/wallpapers/walls" 
+#LIVE_WALLPAPER_DIR="$HOME/Pictures/"
+#sddm_theme=catppuccin-mocha
+
+# Thumbnail cache directory
+THUMB_DIR="$HOME/.cache/wallpaper_thumbs"
+mkdir -p "$THUMB_DIR"
+
+# Rofi theme
+ROFI_THEME="$HOME/.config/rofi/themes/wallpaper-switcher/wall_select.rasi"
+
+# Check for required programs
+for cmd in swww rofi; do
+    if ! command -v "$cmd" &>/dev/null; then
+        echo "$cmd is not installed. Please install it."
+        exit 1
+    fi
+done
+
+# Check for ImageMagick
+if ! command -v convert &>/dev/null && ! command -v magick &>/dev/null; then
+    echo "ImageMagick is required for thumbnail generation."
+    exit 1
+fi
+
+convert_cmd=$(command -v convert || command -v magick)
+
+generate_thumbnails() {
+    echo "Generating thumbnails..."
+
+    #for dir in "$STATIC_WALLPAPER_DIR" "$LIVE_WALLPAPER_DIR"; do
+    for dir in "$STATIC_WALLPAPER_DIR"; do
+        for ext in jpg jpeg png webp bmp ; do
+            shopt -s nullglob
+            for img in "$dir"/*."$ext"; do
+                [ -f "$img" ] || continue
+                filename=$(basename "$img")
+                name="${filename%.*}"
+                thumb_path="$THUMB_DIR/${name}_thumb.png"
+
+                if [ ! -f "$thumb_path" ] || [ "$img" -nt "$thumb_path" ]; then
+                    if [[ "$img" =~ \.(mp4|mkv)$ ]]; then
+                        # ffmpeg -i "$img" -vf "scale=500:500" -frames:v 1 "$thumb_path" -y 2>/dev/null
+                        ffmpeg -i "$img" -vf "scale=500:500" -vframes 1 "$thumb_path" -y 2>/dev/null
+                        # ffmpeg -i "$img" -frames:v 1 "$thumb_path" -y 2>/dev/null
+                        # "$convert_cmd" "$thumb_path" -strip -thumbnail 500x500^ -gravity center -extent 500x500 "$thumb_path" 2>/dev/null
+
+                    else
+                        "$convert_cmd" "$img[0]" -strip -thumbnail 500x500^ -gravity center -extent 500x500 "$thumb_path" 2>/dev/null
+                    fi
+                fi
+            done
+            shopt -u nullglob
+        done
+    done
+}
+
+create_rofi_entries() {
+    mapping_file="/tmp/wallpaper_mapping_$$"
+    > "$mapping_file"
+
+    #for dir_type in static live; do
+    for dir_type in static; do
+        dir_var="${dir_type^^}_WALLPAPER_DIR"
+        dir="${!dir_var}"
+
+        #for ext in jpg jpeg png webp bmp gif mp4 mkv; do
+        for ext in jpg jpeg png webp bmp; do
+            for img in "$dir"/*."$ext"; do
+                [ -f "$img" ] || continue
+                filename=$(basename "$img")
+                name="${filename%.*}"
+                label="$name"
+                #[ "$dir_type" = "live" ] && label="[Live] $name"
+                thumb="$THUMB_DIR/${name}_thumb.png"
+
+                echo -e "$label|$img|$dir_type" >> "$mapping_file"
+
+                if [ -f "$thumb" ]; then
+                    echo -e "$label\x00icon\x1f$thumb"
+                else
+                    echo "$label"
+                fi
+            done
+        done
+    done
+}
+
+generate_thumbnails
+
+if [ -f "$ROFI_THEME" ]; then
+    selection=$(create_rofi_entries | rofi -dmenu -i \
+        -p "󰸉 Select Wallpaper :" \
+        -show-icons \
+        -markup-rows \
+        -theme "$ROFI_THEME")
+else
+    selection=$(create_rofi_entries | rofi -dmenu -i \
+        -p "󰸉 Select Wallpaper" \
+        -show-icons \
+        -markup-rows \
+        -theme-str 'listview { columns: 3; lines: 3; }' \
+        -theme-str 'element { orientation: vertical; }' \
+        -theme-str 'element-text { horizontal-align: 0.5; }' \
+        -theme-str 'element-icon { size: 5em; }')
+fi
+
+[ -z "$selection" ] && exit 0
+
+mapping_file="/tmp/wallpaper_mapping_$$"
+read -r selected_line < <(grep -F "$selection" "$mapping_file")
+IFS='|' read -r _ selected_path type <<< "$selected_line"
+
+rm -f "$mapping_file"
+
+# get wall thumb
+filename=$(basename "$selected_path")
+name="${filename%.*}"
+
+
+if [ -f "$selected_path" ]; then
+    x_hash=$(sha1sum "$selected_path" | awk '{print $1}')
+
+    if [ "$type" = "static" ]; then
+        killall mpvpaper &>/dev/null
+        if ! pgrep -x swww-daemon &>/dev/null; then
+            swww-daemon & 
+            swww clear
+        fi
+        swww img "$selected_path" --transition-type any --transition-duration 3 
+        # change rofi bg and apply matugen color
+        python $HOME/.config/custom-scripts/get_wall.py
+        #echo "Wallpaper set: $(basename "$selected_path")"
+        cp "$selected_path" ~/.cache/wall
+        dunstify -i $THUMB_DIR/${name}_thumb.png -u low "Wallpaper Changed" "Wallpaper set to $(basename "$selected_path")"
+        
+        # notify-send -i $selected_path -u low "Wallpaper Changed" "Wallpaper set to $(basename "$selected_path")"
+
+        # magick "$selected_path"[0] -strip -resize 1000 -gravity center -extent 1000 -quality 90 "$HOME/.cache/wall.thmb"
+        #magick "$selected_path"[0] -strip -thumbnail 500x500^ -gravity center -extent 500x500 "$HOME/.cache/wall.sqre"
+        #magick "$selected_path"[0] -strip -scale 10% -blur 0x3 -resize 100% "$HOME/.cache/wall.blur"
+        magick "$HOME/.cache/wall.sqre" \
+            \( -size 500x500 xc:white \
+                -fill "rgba(0,0,0,0.7)" -draw "polygon 400,500 500,500 500,0 450,0" \
+                -fill black -draw "polygon 500,500 500,0 450,500" \) \
+                -alpha Off -compose CopyOpacity -composite "$HOME/.cache/wall.quad.png" && mv "$HOME/.cache/wall.quad.png" "$HOME/.cache/wall.quad"
+    else
+        killall swww-daemon &>/dev/null
+        #killall mpvpaper &>/dev/null
+
+        #mpvpaper -o "loop --geometry=100%x100% --panscan=1.0 --auto-pause" ALL "$selected_path" &
+        #ffmpeg -y -i "$selected_path" -ss 00:00:01.000 -vframes 1 "$HOME/.cache/wall.png" &>/dev/null
+        mv "$HOME/.cache/wall.png" "$HOME/.cache/wall"
+        
+        magick "$HOME/.cache/wall" -strip -thumbnail 500x500^ -gravity center -extent 500x500 "$HOME/.cache/wall.sqre"
+        magick "$HOME/.cache/wall" -strip -scale 10% -blur 0x3 -resize 100% "$HOME/.cache/wall.blur" && mv "$HOME/.cache/wall.quad.png" "$HOME/.cache/wall.quad"
+        magick "$HOME/.cache/wall.sqre" \
+            \( -size 500x500 xc:white \
+                -fill "rgba(0,0,0,0.7)" -draw "polygon 400,500 500,500 500,0 450,0" \
+                -fill black -draw "polygon 500,500 500,0 450,500" \) \
+                -alpha Off -compose CopyOpacity -composite "$HOME/.cache/wall.quad.png" && mv "$HOME/.cache/wall.quad.png" "$HOME/.cache/wall.quad"
+
+    fi
+else
+    echo "Error: File not found - $selected_path"
+    exit 1
+fi
+
+#cp $HOME/.cache/wall.blur /usr/share/sddm/themes/$sddm_theme/backgrounds

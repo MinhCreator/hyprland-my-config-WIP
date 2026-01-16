@@ -1,0 +1,177 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "palette": {
+    "closer": "p:os",
+    "lavender": "#ff0000",
+    "os": "#16faef",
+    "pink": "#F4B8E4",
+    "red": "#fc0303"
+  },
+  "transient_prompt": {
+    // "template": "\ue285 ",
+    "foreground": "#FEF5ED",
+    "background": "transparent"
+  },
+  "console_title_template": "{{ .Folder }}",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        // os displayed
+        {
+          "properties": {
+            "alpine": "\uf300",
+            "arch": "\uf303",
+            "cache_duration": "none",
+            "centos": "\uf304",
+            "debian": "\uf306",
+            "elementary": "\uf309",
+            "fedora": "\uf30a",
+            "gentoo": "\uf30d",
+            "linux": "\ue712",
+            "macos": "\ue711",
+            "manjaro": "\uf312",
+            "mint": "\uf30f",
+            "opensuse": "\uf314",
+            "raspbian": "\uf315",
+            "ubuntu": "\uf31c",
+            "windows": "\ue70f"
+          },
+          "template": " {{ if .WSL }}\ue712 on {{ end }}{{ .Icon }} ",
+          "foreground": "p:os",
+          "type": "os",
+          "style": "plain"
+        },
+        // user name
+        {
+          "foreground": "#ff8181",
+          "style": "plain",
+          //"template": "{{ .UserName }}@{{ .HostName }} ",
+          "template": "{{ .UserName }} ",
+          "type": "session"
+        },
+        // shell displayed 
+        {
+          // "background": "#FEF5ED",
+          "foreground": "#82eff3",
+          "style": "plain",
+          "template": "used \uf489 {{ .Name }} ",
+          "type": "shell"
+        },
+        // path
+        {
+          "properties": {
+            "folder_icon": "...",
+            "home_icon": "~",
+            "style": "agnoster_short"
+          },
+          "template": "{{ .Path }} ",
+          "type": "path",
+          "style": "plain"
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "segments": [
+        // git status
+        {
+          "properties": {
+            "branch_icon": "\ue725 ",
+            "cache_duration": "none",
+            "cherry_pick_icon": "\ue29b ",
+            "commit_icon": "\uf417 ",
+            "fetch_status": true,
+            "fetch_upstream_icon": true,
+            "merge_icon": "\ue727 ",
+            "no_commits_icon": "\uf0c3 ",
+            "rebase_icon": "\ue728 ",
+            "revert_icon": "\uf0e2 ",
+            "tag_icon": "\uf412 "
+          },
+          "template": " {{ .UpstreamIcon }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
+          "foreground": "p:lavender",
+          "type": "git",
+          "style": "plain"
+        },
+        // file type
+        {
+          "type": "node",
+          "style": "plain",
+          //"powerline_symbol": "\ue0b0",
+          //"background": "#000000",
+          "foreground": "#45bf17",
+          "template": " \ue718 {{ .Full }} "
+        },
+        {
+          "type": "lua",
+          "style": "plain",
+          "foreground": "#25b9fd",
+          //"background": "blue",
+          "template": "  {{ .Full }} "
+        },
+        {
+          "type": "python",
+          "style": "plain",
+          "foreground": "#f2ff7c",
+          //"background": "#916cff00",
+          "template": "  {{ .Full }} "
+        },
+        // npm
+        {
+          "type": "npm",
+          "style": "plain",
+          "foreground": "#ff4949",
+          //"background": "#ffeb3b",
+          "template": " {{ .Full }} "
+        },
+        // react
+        {
+          "type": "react",
+          "style": "plain",
+          "foreground": "#81a1c1",
+          "template": "  {{ .Full }} "
+        },
+        // project
+        {
+          "type": "project",
+          "style": "plain",
+          "foreground": "#193549",
+          "background": "#ffeb3b",
+          "template": " {{ if .Error }}{{ .Error }}{{ else }}{{ if .Version }} {{.Version}}{{ end }} {{ if .Name }}{{ .Name }}{{ end }} {{ if .Type }}{{.Type}}{{ end }}{{ end }}  "
+        },
+        //execution time
+        {
+          "type": "executiontime",
+          "style": "plain",
+          "foreground": "#ffffff",
+          "template": "<#fefefe>\ueba2 {{ .FormattedMs }} ",
+          "properties": {
+            "threshold": 500,
+            //"style": "austin",
+            "always_enabled": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "\ue285 ",
+          "foreground": "p:closer",
+          "type": "text",
+          "style": "plain"
+        }
+      ],
+      "newline": true
+    }
+  ],
+  "version": 3
+}
